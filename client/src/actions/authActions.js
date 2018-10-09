@@ -55,6 +55,8 @@ export const logoutUser = () => {
     // Remove auth header for future requests
     setAuthToken(false);
 
+    window.location.href = "/login";
+
     // Set current user to empty object
     dispatch({
       type: actionTypes.SET_CURRENT_USER,
