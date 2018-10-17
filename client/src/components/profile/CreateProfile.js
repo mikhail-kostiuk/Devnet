@@ -1,17 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
 import SelectListGroup from "../common/SelectListGroup";
 import InputGroup from "../common/InputGroup";
+import { createProfile } from "../../actions/profileActions";
 
 class CreateProfile extends Component {
   constructor() {
     super();
 
     this.state = {
-      test: false,
       displaySocialInputs: false,
       handle: "",
       company: "",
@@ -33,8 +34,32 @@ class CreateProfile extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
+
   onFormSubmit(e) {
     e.preventDefault();
+
+    const profileData = {
+      handle: this.state.handle,
+      company: this.state.company,
+      website: this.state.website,
+      location: this.state.location,
+      status: this.state.status,
+      skills: this.state.skills,
+      githubusername: this.state.githubusername,
+      bio: this.state.bio,
+      twitter: this.state.twitter,
+      facebook: this.state.facebook,
+      linkedin: this.state.linkedin,
+      youtube: this.state.youtube,
+      instagram: this.state.instagram
+    };
+
+    this.props.createProfile(profileData, this.props.history);
   }
 
   onInputChange(e) {
@@ -118,7 +143,7 @@ class CreateProfile extends Component {
               <h1 className="lead text-center">Create Your Profile</h1>
               <p>Let's get some information to make your profile stand out</p>
               <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={this.onFormSubmit}>
                 <TextFieldGroup
                   type="text"
                   placeholder="* Profile Handle"
@@ -239,4 +264,7 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(CreateProfile);
+export default connect(
+  mapStateToProps,
+  { createProfile }
+)(withRouter(CreateProfile));
