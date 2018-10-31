@@ -53,6 +53,22 @@ export const addExperience = (experienceData, history) => {
   };
 };
 
+// Add education
+export const addEducation = (educationData, history) => {
+  return dispatch => {
+    console.log("addEdu action");
+    axios
+      .post("/api/profile/education", educationData)
+      .then(res => history.push("/dashboard"))
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: err.response.data
+        })
+      );
+  };
+};
+
 // Delete account & profile
 export const deleteAccount = () => {
   return dispatch => {

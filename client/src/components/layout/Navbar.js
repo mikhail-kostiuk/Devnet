@@ -66,8 +66,8 @@ class Navbar extends Component {
           <button
             className="navbar-toggler"
             type="button"
-            dataToggle="collapse"
-            dataTarget="#mobile-nav"
+            // dataToggle="collapse"
+            // dataTarget="#mobile-nav"
           >
             <span className="navbar-toggler-icon" />
           </button>
