@@ -38,6 +38,21 @@ export const createProfile = (profileData, history) => {
   };
 };
 
+// Add experience
+export const addExperience = (experienceData, history) => {
+  return dispatch => {
+    axios
+      .post("/api/profile/experience", experienceData)
+      .then(res => history.push("/dashboard"))
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: err.response.data
+        })
+      );
+  };
+};
+
 // Delete account & profile
 export const deleteAccount = () => {
   return dispatch => {
