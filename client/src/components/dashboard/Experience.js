@@ -12,6 +12,7 @@ class Experience extends Component {
   }
 
   onDeleteClick(expId) {
+    console.log(expId);
     this.props.deleteExperience(expId);
   }
 
@@ -29,7 +30,10 @@ class Experience extends Component {
           )}
         </td>
         <td>
-          <button onClick={this.onDeleteClick} className="btn btn-danger">
+          <button
+            onClick={() => this.onDeleteClick(exp._id)}
+            className="btn btn-danger"
+          >
             Delete
           </button>
         </td>
