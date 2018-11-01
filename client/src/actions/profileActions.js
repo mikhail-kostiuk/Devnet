@@ -89,6 +89,26 @@ export const addEducation = (educationData, history) => {
   };
 };
 
+// Delete education
+export const deleteEducation = (eduId, history) => {
+  return dispatch => {
+    axios
+      .delete(`/api/profile/education/${eduId}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.GET_PROFILE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: err.response.data
+        })
+      );
+  };
+};
+
 // Delete account & profile
 export const deleteAccount = () => {
   return dispatch => {

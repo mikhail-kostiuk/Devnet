@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import _ from "lodash";
 import TextFieldGroup from "../common/TextFieldGroup";
 import TextAreaFieldGroup from "../common/TextAreaFieldGroup";
@@ -49,7 +49,7 @@ class EditProfile extends Component {
 
       // Bring skills array back to comma separated values
       const skills = profile.skills.join(",");
-      console.log(profile);
+
       // If profile doesn't exist, make empty string
       profile.company = _.isEmpty(profile.company) ? "" : profile.company;
       profile.website = _.isEmpty(profile.website) ? "" : profile.website;
@@ -194,6 +194,9 @@ class EditProfile extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
+              <Link to="/dashboard" className="btn btn-light">
+                Go Back
+              </Link>
               <h1 className="lead text-center">Edit Profile</h1>
               <small className="d-block pb-3">* = required fields</small>
               <form onSubmit={this.onFormSubmit}>
