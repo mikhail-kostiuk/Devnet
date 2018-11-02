@@ -76,7 +76,6 @@ export const deleteExperience = (expId, history) => {
 // Add education
 export const addEducation = (educationData, history) => {
   return dispatch => {
-    console.log("addEdu action");
     axios
       .post("/api/profile/education", educationData)
       .then(res => history.push("/dashboard"))
@@ -114,7 +113,7 @@ export const deleteAccount = () => {
   return dispatch => {
     if (window.confirm("Are you sure? This can NOT be undone!")) {
       axios
-        .delete("api/profile")
+        .delete("/api/profile")
         .then(res =>
           dispatch({
             type: actionTypes.SET_CURRENT_USER,
@@ -122,12 +121,35 @@ export const deleteAccount = () => {
           })
         )
         .catch(err =>
-          dispatch({ type: actionTypes.GET_ERROR, payload: err.response.data })
+          dispatch({
+            type: actionTypes.GET_ERROR,
+            payload: err.response.data
+          })
         );
     }
   };
 };
 
+// Get all profiles
+export const getProfiles = () => {
+  return dispatch => {
+    dispatch(setProfileLoading());
+    axios
+      .get("/api/profile/all")
+      .then(res =>
+        dispatch({
+          type: actionTypes.GET_PROFILES,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_PROFILES,
+          payload: null
+        })
+      );
+  };
+};
 // Profile loading
 export const setProfileLoading = () => {
   return {
