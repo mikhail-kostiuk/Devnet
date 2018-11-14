@@ -16,6 +16,7 @@ import AddExperience from "./components/profile/AddExperience";
 import AddEducation from "./components/profile/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import PrivateRoute from "./components/common/PrivateRoute";
+import Profile from "./components/view-profile/Profile";
 import setAuthToken from "./utils/setAuthToken";
 import * as actionTypes from "./actions/actionTypes";
 import { logoutUser } from "./actions/authActions";
@@ -61,6 +62,7 @@ class App extends Component {
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/profiles" component={Profiles} />
+              <Route exact path="/profile/:handle" component={Profile} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </Switch>

@@ -23,6 +23,27 @@ export const getCurrentProfile = () => {
   };
 };
 
+// Get profile by handle
+export const getProfileByHandle = handle => {
+  return dispatch => {
+    dispatch(setProfileLoading());
+    axios
+      .get(`/api/profile/handle/${handle}`)
+      .then(res =>
+        dispatch({
+          type: actionTypes.GET_PROFILE,
+          payload: res.data
+        })
+      )
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: null
+        })
+      );
+  };
+};
+
 // Create Profile
 export const createProfile = (profileData, history) => {
   return dispatch => {
