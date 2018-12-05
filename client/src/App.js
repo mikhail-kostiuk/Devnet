@@ -15,6 +15,7 @@ import EditProfile from "./components/profile/EditProfile";
 import AddExperience from "./components/profile/AddExperience";
 import AddEducation from "./components/profile/AddEducation";
 import Profiles from "./components/profiles/Profiles";
+import NotFound from "./components/not-found/NotFound";
 import PrivateRoute from "./components/common/PrivateRoute";
 import Profile from "./components/view-profile/Profile";
 import setAuthToken from "./utils/setAuthToken";
@@ -93,6 +94,9 @@ class App extends Component {
                   path="/add-education"
                   component={AddEducation}
                 />
+              </Switch>
+              <Switch>
+                <PrivateRoute exact path="/not-found" component={NotFound} />
               </Switch>
             </div>
             <Footer />
