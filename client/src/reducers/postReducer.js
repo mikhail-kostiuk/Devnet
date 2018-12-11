@@ -1,3 +1,5 @@
+import * as actionTypes from "../actions/actionTypes";
+
 const initialState = {
   posts: [],
   post: {},
@@ -5,8 +7,12 @@ const initialState = {
 };
 
 const postReducer = (state = initialState, action) => {
-  switch (action.actionType) {
+  switch (action.type) {
+    case actionTypes.ADD_POST:
+      return { ...state, posts: [action.payload, ...state.posts] };
     default:
       return state;
   }
 };
+
+export default postReducer;
