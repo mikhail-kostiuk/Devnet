@@ -1,10 +1,11 @@
 import axios from "axios";
 import * as actionTypes from "./actionTypes";
 
+// Add post
 export const addPost = postData => {
   return dispatch => {
     axios
-      .post("api/posts", postData)
+      .post("/api/posts", postData)
       .then(res => {
         dispatch({
           type: actionTypes.ADD_POST,
@@ -20,14 +21,36 @@ export const addPost = postData => {
   };
 };
 
+// Get posts
 export const getPosts = () => {
   return dispatch => {
     dispatch(setPostLoading());
     axios
-      .get("api/posts")
+      .get("/api/posts")
       .then(res => {
         dispatch({
           type: actionTypes.GET_POSTS,
+          payload: res.data
+        });
+      })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_POSTS,
+          payload: null
+        })
+      );
+  };
+};
+
+// Get post
+export const getPost = id => {
+  return dispatch => {
+    dispatch(setPostLoading());
+    axios
+      .get(`/api/posts/${id}`)
+      .then(res => {
+        dispatch({
+          type: actionTypes.GET_POST,
           payload: res.data
         });
       })
@@ -44,7 +67,7 @@ export const getPosts = () => {
 export const deletePost = id => {
   return dispatch => {
     axios
-      .delete(`api/posts/${id}`)
+      .delete(`/api/posts/${id}`)
       .then(res => {
         dispatch({
           type: actionTypes.DELETE_POST,
@@ -64,7 +87,7 @@ export const deletePost = id => {
 export const addLike = id => {
   return dispatch => {
     axios
-      .post(`api/posts/like/${id}`)
+      .post(`/api/posts/like/${id}`)
       .then(res => {
         dispatch(getPosts());
       })
@@ -81,7 +104,7 @@ export const addLike = id => {
 export const removeLike = id => {
   return dispatch => {
     axios
-      .post(`api/posts/unlike/${id}`)
+      .post(`/api/posts/unlike/${id}`)
       .then(res => {
         dispatch(getPosts());
       })
