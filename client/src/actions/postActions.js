@@ -4,6 +4,7 @@ import * as actionTypes from "./actionTypes";
 // Add post
 export const addPost = postData => {
   return dispatch => {
+    dispatch(clearErrors());
     axios
       .post("/api/posts", postData)
       .then(res => {
@@ -120,11 +121,32 @@ export const removeLike = id => {
 // Add comment
 export const addComment = (postId, commentData) => {
   return dispatch => {
+    dispatch(clearErrors());
     axios
       .post(`/api/posts/comment/${postId}`, commentData)
       .then(res => {
         dispatch({
-          type: actionTypes.ADD_POST,
+          type: actionTypes.GET_POST,
+          payload: res.data
+        });
+      })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: err.response.data
+        })
+      );
+  };
+};
+
+// Delete comment
+export const deleteComment = (postId, commentId) => {
+  return dispatch => {
+    axios
+      .delete(`/api/posts/comment/${postId}/${commentId}`)
+      .then(res => {
+        dispatch({
+          type: actionTypes.GET_POST,
           payload: res.data
         });
       })
@@ -140,4 +162,9 @@ export const addComment = (postId, commentData) => {
 // Set loading state
 export const setPostLoading = () => {
   return { type: actionTypes.POST_LOADING };
+};
+
+// Clear errors
+export const clearErrors = () => {
+  return { type: actionTypes.CLEAR_ERRORS };
 };
