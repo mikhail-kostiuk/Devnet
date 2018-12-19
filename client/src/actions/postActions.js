@@ -117,6 +117,26 @@ export const removeLike = id => {
   };
 };
 
+// Add comment
+export const addComment = (postId, commentData) => {
+  return dispatch => {
+    axios
+      .post(`/api/posts/comment/${postId}`, commentData)
+      .then(res => {
+        dispatch({
+          type: actionTypes.ADD_POST,
+          payload: res.data
+        });
+      })
+      .catch(err =>
+        dispatch({
+          type: actionTypes.GET_ERROR,
+          payload: err.response.data
+        })
+      );
+  };
+};
+
 // Set loading state
 export const setPostLoading = () => {
   return { type: actionTypes.POST_LOADING };
